@@ -1,0 +1,84 @@
+# Configuration d'Alternabot. Copie ce dossier : cp -r profil.exemple profil
+# Les valeurs ${NOM} sont remplacées par les variables de profil/.env.
+
+# Tes informations, utilisées dans les mails et les formulaires.
+candidat:
+  prenom: ""          # ex. Camille
+  nom: ""             # ex. Martin
+  email: ""           # ex. camille.martin@example.com
+  telephone: ""       # ex. +33 6 00 00 00 00
+  linkedin: ""        # optionnel, ex. https://www.linkedin.com/in/ton-profil
+  cv: CV.pdf          # fichier placé dans profil/
+  formation: ""       # intitulé court, ex. Master Data et IA (200 caractères maximum)
+  ecole: ""           # ex. Université de Lyon
+  rythme: ""          # ex. 2 semaines école / 2 semaines entreprise
+  duree_contrat: ""   # ex. 24 mois
+  debut_contrat: ""   # libellés du formulaire LBA, séparés par des virgules : ex. Dès que possible, Septembre 2027
+
+# Où et quoi chercher.
+recherche:
+  ville: Lyon
+  latitude: 45.7640
+  longitude: 4.8357
+  rayon_km: 30
+  # Codes ROME des métiers visés. Trouve les tiens sur
+  # https://candidat.francetravail.fr/metierscope
+  codes_rome:
+    - M1805           # études et développement informatique
+    - M1403           # études et prospective socio-économique
+  # Requêtes Google Maps pour trouver des entreprises à contacter.
+  secteurs_maps:
+    - entreprise de services du numérique
+    - agence web
+    - cabinet de conseil data
+  # Mots qui doivent apparaître dans une offre pour qu'elle t'intéresse.
+  mots_cles_offres:
+    - data
+    - développeur
+
+# Rédaction des mails et des messages.
+ia:
+  moteur: claude-cli          # claude-cli (abonnement Claude Code) ou api (ANTHROPIC_API_KEY)
+  modele: claude-sonnet-5-5   # utilisé seulement avec le moteur api
+
+# La Bonne Alternance (candidature simplifiée).
+lba:
+  plafond_jour: 10
+  delai_s: 60
+  jeton: "${LBA_API_TOKEN}"
+
+# Envoi des mails spontanés par SMTP Gmail (mot de passe d'application).
+gmail:
+  comptes:
+    - email: ""               # ex. camille.martin@gmail.com
+      variable_mdp: GMAIL_MDP_1
+  plafond_jour_par_compte: 15
+  delai_min_s: 45
+  delai_max_s: 120
+
+# Suivi des réponses (lecture seule des boîtes Gmail ci-dessus, même mot de passe d'application).
+reponses:
+  ia: false                   # true : l'IA départage les réponses que les mots-clés ne classent pas
+
+# Recherche d'entreprises par Google Maps (facturée à l'appel).
+maps:
+  cle: "${GOOGLE_MAPS_API_KEY}"
+  budget_usd: 5
+
+# Offres publiées sur Google, via SerpAPI (optionnel).
+google_offres:
+  cle: "${SERPAPI_KEY}"
+
+# Heure de la routine quotidienne.
+routine:
+  heure: "09:00"
+  mails_par_jour: 15          # mails rédigés chaque jour (étape rediger)
+  emails_par_jour: 30         # entreprises dont on cherche l'adresse chaque jour (étape emails)
+  # Délai maximal par étape, en secondes (une étape plus longue est arrêtée, la suivante tourne).
+  # delais:
+  #   envoyer: 3600
+  #   lba: 3600
+  #   offres: 300
+  #   emails: 1800
+  #   rediger: 1800
+  #   reponses: 600
